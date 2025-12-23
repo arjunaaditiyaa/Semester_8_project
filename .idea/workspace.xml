@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b54dc1d-9962-4c0a-b5b9-fe9dead3c24a" name="Changes" comment="vacination schedule sql model" />
+    <list default="true" id="0b54dc1d-9962-4c0a-b5b9-fe9dead3c24a" name="Changes" comment="added disease out_break sql model">
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -62,7 +64,31 @@
       <option name="project" value="LOCAL" />
       <updated>1766469387436</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="vacination schedule sql model">
+      <option name="closed" value="true" />
+      <created>1766469609113</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1766469609113</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added symptom guide  schedule sql model">
+      <option name="closed" value="true" />
+      <created>1766469651292</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1766469651292</updated>
+    </task>
+    <task id="LOCAL-00004" summary="added disease out_break sql model">
+      <option name="closed" value="true" />
+      <created>1766469698339</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1766469698339</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -106,6 +132,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="vacination schedule sql model" />
-    <option name="LAST_COMMIT_MESSAGE" value="vacination schedule sql model" />
+    <MESSAGE value="added symptom guide  schedule sql model" />
+    <MESSAGE value="added disease out_break sql model" />
+    <option name="LAST_COMMIT_MESSAGE" value="added disease out_break sql model" />
   </component>
 </project>
