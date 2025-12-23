@@ -11,3 +11,9 @@ class VaccinationSchedule(SQLModel, table=True):
     target_disease: str
     age_group: str
     schedule_details: str
+
+class SymptomGuide(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    disease_name: str
+    common_symptoms: str
+    prevention: str
