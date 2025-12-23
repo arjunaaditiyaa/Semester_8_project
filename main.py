@@ -17,3 +17,13 @@ class SymptomGuide(SQLModel, table=True):
     disease_name: str
     common_symptoms: str
     prevention: str
+
+class DiseaseOutbreak(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    title: str
+    summary: str
+    publication_date: str
+    url: str
+
+
+engine = create_engine("sqlite:///healthcare_expert.db")
