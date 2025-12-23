@@ -95,3 +95,73 @@ def check_active_outbreaks(query: str) -> str:
         statement = select(DiseaseOutbreak).where(DiseaseOutbreak.title.contains(query))
         results = session.exec(statement).all()
         return json.dumps([r.model_dump() for r in results]) if results else "No active outbreaks found for that query."
+
+class HealthAgent:
+    def __init__(self):
+        self.client = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
+        self.model = "llama3.1"
+        self.tools = {
+            "get_vaccine_schedule": get_vaccine_schedule,
+            "get_disease_symptoms": get_disease_symptoms,
+            "check_active_outbreaks": check_active_outbreaks,
+            "sync_who_outbreaks": sync_who_outbreaks
+        }
+
+    def chat(self, user_prompt: str):
+        print(f"\nUser: {user_prompt}")
+
+        system_msg = (
+            "You are a Multilingual Healthcare Assistant. Respond in the user's language. "
+            "Use the provided tools to get verified medical facts. "
+            "ALWAYS include a disclaimer: 'I am an AI, not a doctor. Consult a professional.'"
+        )
+
+        messages = [
+            {"role": "system", "content": system_msg},
+            {"role": "user", "content": user_prompt}
+        ]
+
+        response = self.client.chat.completions.create(
+            model=self.model,
+            messages=messages,
+            functions=[
+                {"name": "get_vaccine_schedule",
+                 "parameters": {"type": "object", "properties": {"disease": {"type": "string"}}}},
+                {"name": "get_disease_symptoms",
+                 "parameters": {"type": "object", "properties": {"disease": {"type": "string"}}}},
+                {"name": "check_active_outbreaks",
+                 "parameters": {"type": "object", "properties": {"query": {"type": "string"}}}},
+                {"name": "sync_who_outbreaks", "parameters": {"type": "object", "properties": {}}}
+            ]
+        )
+
+        message = response.choices[0].message
+
+        if message.function_call:
+            fn_name = message.function_call.name
+            fn_args = json.loads(message.function_call.arguments)
+            print(f" Agent calling tool: {fn_name}({fn_args})")
+
+            tool_result = self.tools[fn_name](**fn_args)
+
+            messages.append(message)
+            messages.append({"role": "function", "name": fn_name, "content": tool_result})
+
+            final_response = self.client.chat.completions.create(
+                model=self.model,
+                messages=messages
+            )
+            print(f"Assistant: {final_response.choices[0].message.content}")
+        else:
+            print(f"Assistant: {message.content}")
+
+
+if __name__ == "__main__":
+    init_db()
+    agent = HealthAgent()
+
+    agent.chat("¿Cuáles son los síntomas del Cólera?")
+
+    agent.chat("Sync the latest WHO outbreaks and tell me if there is any news about Mpox.")
+
+    agent.chat("What is the vaccination schedule for Polio?")
