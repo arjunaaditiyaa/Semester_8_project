@@ -47,3 +47,51 @@ def init_db():
                 SymptomGuide(disease_name="Mpox", common_symptoms="Rash with blisters, fever, swollen lymph nodes.",
                              prevention="Avoid skin contact with infected, vaccination."))
         session.commit()
+
+def sync_who_outbreaks():
+    API_URL = "https://www.who.int/api/news/diseaseoutbreaknews"
+    print("🔄 Syncing with WHO Outbreak Database...")
+    try:
+        response = requests.get(API_URL, timeout=10)
+        data = response.json()
+
+        items = data.get('value', [])[:10]
+
+        with Session(engine) as session:
+            for item in items:
+                existing = session.exec(select(DiseaseOutbreak).where(DiseaseOutbreak.title == item['Title'])).first()
+                if not existing:
+                    new_outbreak = DiseaseOutbreak(
+                        title=item['Title'],
+                        summary=item.get('Overview', 'No summary provided.'),
+                        publication_date=item.get('PublicationDate', 'Unknown'),
+                        response=item.get('Response','no response provoided'),
+                        further_info=item.get('FurtherInformation','no further information'),
+                        url=f"https://www.who.int/emergencies/disease-outbreak-news/item/{item.get('ItemDefaultUrl', '')}"
+                    )
+                    session.add(new_outbreak)
+            session.commit()
+        return f"Successfully synced {len(items)} latest WHO reports."
+    except Exception as e:
+        return f"API Sync Error: {str(e)}"
+
+def get_vaccine_schedule(disease: str) -> str:
+    with Session(engine) as session:
+        statement = select(VaccinationSchedule).where(VaccinationSchedule.target_disease.contains(disease))
+        results = session.exec(statement).all()
+        return json.dumps(
+            [r.model_dump() for r in results]) if results else "No vaccination schedule found in database."
+
+
+def get_disease_symptoms(disease: str) -> str:
+    with Session(engine) as session:
+        statement = select(SymptomGuide).where(SymptomGuide.disease_name.contains(disease))
+        results = session.exec(statement).all()
+        return json.dumps([r.model_dump() for r in results]) if results else "No symptom info found."
+
+
+def check_active_outbreaks(query: str) -> str:
+    with Session(engine) as session:
+        statement = select(DiseaseOutbreak).where(DiseaseOutbreak.title.contains(query))
+        results = session.exec(statement).all()
+        return json.dumps([r.model_dump() for r in results]) if results else "No active outbreaks found for that query."

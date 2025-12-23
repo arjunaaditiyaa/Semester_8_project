@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b54dc1d-9962-4c0a-b5b9-fe9dead3c24a" name="Changes" comment="added disease out_break sql model">
+    <list default="true" id="0b54dc1d-9962-4c0a-b5b9-fe9dead3c24a" name="Changes" comment="added sql model initializzation">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -88,7 +89,23 @@
       <option name="project" value="LOCAL" />
       <updated>1766469698339</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="added sql model initializzation">
+      <option name="closed" value="true" />
+      <created>1766469765614</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1766469765614</updated>
+    </task>
+    <task id="LOCAL-00006" summary="added sql model initializzation">
+      <option name="closed" value="true" />
+      <created>1766469771677</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1766469771677</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -134,6 +151,7 @@
     <MESSAGE value="vacination schedule sql model" />
     <MESSAGE value="added symptom guide  schedule sql model" />
     <MESSAGE value="added disease out_break sql model" />
-    <option name="LAST_COMMIT_MESSAGE" value="added disease out_break sql model" />
+    <MESSAGE value="added sql model initializzation" />
+    <option name="LAST_COMMIT_MESSAGE" value="added sql model initializzation" />
   </component>
 </project>
