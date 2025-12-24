@@ -80,6 +80,7 @@ def get_disease_symptoms(disease):
         ).all()
     return "\n".join(r.common_symptoms for r in results) or "No data found"
 
+
 def check_active_outbreaks(query):
     with Session(engine) as session:
         results = session.exec(
