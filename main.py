@@ -126,7 +126,7 @@ async def sync(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def main():
     init_db()
-    app = ApplicationBuilder().token("8317797295:AAFGLEWIcLuSSW5zRgJ9t2CtAe5vv8dqht8").build()
+    app = ApplicationBuilder().token("Telegram_token").build()
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("ask", ask))
